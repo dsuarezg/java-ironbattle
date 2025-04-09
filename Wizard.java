@@ -25,6 +25,29 @@ public class Wizard extends Character implements Attacker{
         setMana(generateRandomMana());
     }
 
+    public Wizard() {
+
+    }
+
+    public int getMaxHp() {
+        return MAX_HP;
+    }
+    public int getMaxIntelligence() {
+        return MAX_INTELLIGENCE;
+    }
+    public int getMaxMana() {
+        return MAX_MANA;
+    }
+    public int getMinHp() {
+        return MIN_HP;
+    }
+    public int getMinIntelligence() {
+        return MIN_INTELLIGENCE;
+    }
+    public int getMinMana() {
+        return MIN_MANA;
+    }
+
     public int getMana() {
         return mana;
     }
@@ -60,7 +83,7 @@ public class Wizard extends Character implements Attacker{
     public void fireBall(Character character){
             System.out.println("Casting fireball: " + getIntelligence() + " points of damage");
             character.setHp(character.getHp()-(getIntelligence()));
-            System.out.println("Character: " + character.getHp() + " health left");
+            System.out.println("Character: " + character.getName() + " has " + character.getHp() + " points of health left");
             setMana(getMana()-5);
     }
 
@@ -72,7 +95,7 @@ public class Wizard extends Character implements Attacker{
         }else{
                 System.out.println("Casting Staff hit: 2 points of damage");
                 character.setHp(character.getHp()-(2));
-                System.out.println("Character: " + character.getHp() + " health left");
+                System.out.println("Character: " + character.getName() + " has " + character.getHp() + " points of health left");
                 //Mana recovery up to init or max?
                 if(getMana()<MAX_MANA){
                     System.out.println("Recovering mana");
@@ -89,7 +112,7 @@ public class Wizard extends Character implements Attacker{
             if(random.nextDouble()>0.5){
                 staffHit(character);
             }else{
-                if(getMana()<5){
+                if(getMana()<=5){
                     staffHit(character);
                 }else {
                     fireBall(character);
@@ -97,6 +120,7 @@ public class Wizard extends Character implements Attacker{
             }
             if(character.getHp()<=0){
                 character.setAlive(false);
+                System.out.println("Character: " + getName() + " has won the battle");
                 System.out.println("The character " + character.getName() + " has been defeated");
             }
         }
@@ -105,6 +129,7 @@ public class Wizard extends Character implements Attacker{
     @Override
     public String toString() {
         return "Wizard{" +
+                "name='" + getName() +
                 "hp=" + getHp() +
                 ", mana=" + getMana() +
                 ", intelligence=" + getIntelligence() +

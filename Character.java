@@ -20,6 +20,9 @@ public class Character {
         setId();
         setAlive(true);
     }
+    public Character() {
+
+    }
 
     public String getId() {
         return id;
@@ -54,6 +57,16 @@ public class Character {
     }
 
     public void attack(Character character) {
+    }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", hp=" + hp +
+                ", isAlive=" + isAlive +
+                '}';
     }
 
 }
