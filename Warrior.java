@@ -41,6 +41,25 @@ public class Warrior extends Character implements Attacker{
         this.strength = strength;
     }
 
+    public int getMaxHp() {
+        return MAX_HP;
+    }
+
+    public int getMaxStamina() {
+        return MAX_STAMINA;
+    }
+    public int getMaxStrength() {
+        return MAX_STRENGTH;
+    }
+    public int getMinHp() {
+        return MIN_HP;
+    }
+    public int getMinStamina() {
+        return MIN_STAMINA;
+    }
+    public int getMinStrength() {
+        return MIN_STRENGTH;
+    }
 
     private int generateRandomHp() {
         Random random = new Random();
@@ -70,7 +89,7 @@ public class Warrior extends Character implements Attacker{
     public void heavyAttack(Character character){
             System.out.println("Heavy Attack: " + getStrength() + " points of damage");
             character.setHp(character.getHp()-(getStrength()));
-            System.out.println("Character: " + character.getHp() + " health left");
+            System.out.println("Character: " + character.getName() + " has " + character.getHp() + " points of health left");
     }
 
 
@@ -84,7 +103,7 @@ public class Warrior extends Character implements Attacker{
             }
                     System.out.println("Weack Attack: " + getStrength()/2 + " points of damage");
                     character.setHp(character.getHp()-(getStrength()/2));
-                    System.out.println("Character: " + character.getHp() + " health left");
+                    System.out.println("Character: " + character.getName() + " has " + character.getHp() + " points of health left");
                     //Stamina recovery up to init or max?
                     if(getStamina()<MAX_STAMINA){
                         System.out.println("Recovering stamina");
@@ -109,6 +128,7 @@ public class Warrior extends Character implements Attacker{
             }
             if(character.getHp()<=0){
                 character.setAlive(false);
+                System.out.println("Character: " + getName() + " has won the battle");
                 System.out.println("The character " + character.getName() + " has been defeated");
             }
         }

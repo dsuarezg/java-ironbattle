@@ -19,6 +19,9 @@ public class Play {
 
     //If fight until one of them wins, modify method to return and push the winner back to a new winner stack for loop until stacks are empty
     private static void battle(Stack<Character> characters){
+        if (characters.size() % 2 != 0) {
+            System.out.println("Odd number of characters," +  characters.pop().getName() +" will be left out.");
+        }
         int counter = 0;
         while (characters.size() > 1){
             counter++;
@@ -26,13 +29,12 @@ public class Play {
             System.out.println("====================================");
             var character1 = characters.pop();
             var character2 = characters.pop();
-            battle(character1,character2);
+            battle (character1,character2);
         }
     }
 
     private static Stack<Character> readFromCSV(File file) throws FileNotFoundException {
         Stack<Character> characters = new Stack<>();
-
         var fileScanner = new Scanner(file);
 
         while (fileScanner.hasNextLine()) {
@@ -50,7 +52,6 @@ public class Play {
         }
         fileScanner.close();
         return characters;
-
     }
 
     //Can use Faker or read names from CSV and generate random characters
@@ -67,14 +68,6 @@ public class Play {
         return characters;
     }
 
-    private static Character charactersFactory(String name) {
-         var random = new Random();
-        if(random.nextDouble()>0.5){
-            return new Warrior(name);
-        } else {
-           return new Wizard(name);
-        }
-    }
 
     private static void menu() {
       Scanner scanner = new Scanner(System.in);
@@ -95,7 +88,7 @@ public class Play {
                   break;
 
               case "2":
-                  System.out.println("Enter the number of characters to generate: ");
+                  System.out.println("Enter a odd number of characters to generate (each battle must be between two characters): ");
                   try {
                       int numberOfCharacters = Integer.parseInt(scanner.nextLine());
                       battle(charactersFactory(numberOfCharacters));
@@ -105,13 +98,63 @@ public class Play {
                   break;
 
               case "3":
-                  System.out.println("Enter the name of the first character: ");
-                  String name = scanner.nextLine();
-                  Character character1 = charactersFactory(name);
+                  System.out.println("Select the type of characters to create:");
+                  System.out.println("Enter 1 for Wizard or 2 for Warrior");
+                  var character1= new Character();
+                  String type = scanner.nextLine();
+                    if(type.equals("1")) {
+                        System.out.println("Enter the Wizard name: ");
+                        String name = scanner.nextLine();
+                        System.out.println("Enter the health points of the Wizard between 50 and 100: ");
+                        String hp = scanner.nextLine();
+                        System.out.println("Enter the intelligence of the Wizard between 1 and 50: ");
+                        String intelligence = scanner.nextLine();
+                        System.out.println("Enter the mana point of the Wizard between 10 and 50: ");
+                        String mana = scanner.nextLine();
+                        character1 = new Wizard(name, Integer.parseInt(hp), Integer.parseInt(intelligence), Integer.parseInt(mana));
+                    }else if(type.equals("2")){
+                        System.out.println("Enter the Warrior name: ");
+                        String name = scanner.nextLine();
+                        System.out.println("Enter the health points of the Warrior between 100 and 200: ");
+                        String hp = scanner.nextLine();
+                        System.out.println("Enter the stamina of the Warrior between 10 and 50: ");
+                        String stamina = scanner.nextLine();
+                        System.out.println("Enter the strength point of the Warrior between 1 and 10: ");
+                        String strength = scanner.nextLine();
+                        character1 = new Warrior(name, Integer.parseInt(hp), Integer.parseInt(stamina), Integer.parseInt(strength));
+                    }else{
+                        System.out.println("Invalid option. Please try again.");
+                        break;
+                    }
 
-                  System.out.println("Enter the name of the second character: ");
-                  name = scanner.nextLine();
-                  Character character2 = charactersFactory(name);
+                  System.out.println("Select the type of the second character to create:");
+                  System.out.println("Enter 1 for Wizard or 2 for Warrior");
+                  var character2 = new Character();
+                  type = scanner.nextLine();
+                  if (type.equals("1")) {
+                      System.out.println("Enter the Wizard name: ");
+                      String name = scanner.nextLine();
+                      System.out.println("Enter the health points of the Wizard between 50 and 100: ");
+                      String hp = scanner.nextLine();
+                      System.out.println("Enter the intelligence of the Wizard between 1 and 50: ");
+                      String intelligence = scanner.nextLine();
+                      System.out.println("Enter the mana point of the Wizard between 10 and 50: ");
+                      String mana = scanner.nextLine();
+                      character2 = new Wizard(name, Integer.parseInt(hp), Integer.parseInt(intelligence), Integer.parseInt(mana));
+                  }else if(type.equals("2")){
+                      System.out.println("Enter the Warrior name: ");
+                      String name = scanner.nextLine();
+                      System.out.println("Enter the health points of the Warrior between 100 and 200: ");
+                      String hp = scanner.nextLine();
+                      System.out.println("Enter the stamina of the Warrior between 10 and 50: ");
+                      String stamina = scanner.nextLine();
+                      System.out.println("Enter the strength point of the Warrior between 1 and 10: ");
+                      String strength = scanner.nextLine();
+                      character2 = new Warrior(name, Integer.parseInt(hp), Integer.parseInt(stamina), Integer.parseInt(strength));
+                  }else{
+                      System.out.println("Invalid option. Please try again.");
+                      break;
+                  }
 
                   battle(character1, character2);
                   break;
