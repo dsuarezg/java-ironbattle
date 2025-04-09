@@ -1,3 +1,3 @@
 public interface Attacker {
-    public attack();
+    public void attack(Character character);
 }
